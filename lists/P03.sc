@@ -11,7 +11,7 @@ object P03 {
   def nthBetter[A](n: Int, ls: List[A]): A =
     (n, ls) match {
       case (0, h :: _   ) => h
-      case (n, _ :: tail) => nthBetter(n - 1, tail)
+      case (num, _ :: tail) => nthBetter(num - 1, tail)
       case (_, Nil      ) => throw new NoSuchElementException
     }
 }
