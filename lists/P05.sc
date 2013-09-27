@@ -14,6 +14,10 @@ def reverse[t](l: List[t]): List[t] = {
   reverseHelper(l, List())
 }
 
+// Pure functional
+def reverseFunctional[A](ls: List[A]): List[A] =
+  ls.foldLeft(List[A]()) { (r, h) => h :: r }
+
 
 reverse(List(1, 1, 2, 3, 5, 8))
 
