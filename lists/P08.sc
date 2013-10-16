@@ -1,4 +1,8 @@
+import scala.annotation.tailrec
+
 def compress[t](l : List[t]) : List[t] = {
+
+  @tailrec
   def compressHelper(toCompress : List[t], compressed : List[t]) : List[t] = {
     (toCompress, compressed) match {
       case (Nil, c) => c
@@ -9,6 +13,26 @@ def compress[t](l : List[t]) : List[t] = {
 
   compressHelper(l.reverse, List())
 }
+
+
+
+//Better:
+def compressTailRecursive[A](ls: List[A]): List[A] = {
+
+  @tailrec
+  def compressR(result: List[A], curList: List[A]): List[A] = curList match {
+    case h :: tail => compressR(h :: result, tail.dropWhile(_ == h))
+    case Nil       => result.reverse
+  }
+  compressR(Nil, ls)
+}
+
+// Functional.
+def compressFunctional[A](ls: List[A]): List[A] =
+  ls.foldRight(List[A]()) { (h, r) =>
+    if (r.isEmpty || r.head != h) h :: r
+    else r
+  }
 
 compress(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e))
 
